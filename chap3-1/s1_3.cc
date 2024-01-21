@@ -1,3 +1,14 @@
+/**
+ * @file s1_3.cc 工厂方法模式
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2024-01-21
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
+
 #include <iostream>
 
 using namespace std;
@@ -100,6 +111,7 @@ public:
     }
 };
 
+// ++ 野兽类工厂 ++
 class M_BeastFactory : public M_ParFactory {
 public:
     virtual Monster* createMonster() override

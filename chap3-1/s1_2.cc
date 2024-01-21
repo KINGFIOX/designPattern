@@ -1,3 +1,14 @@
+/**
+ * @file s1_2.cc 简单工厂模式
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2024-01-21
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
+
 #include <iostream>
 
 using namespace std;

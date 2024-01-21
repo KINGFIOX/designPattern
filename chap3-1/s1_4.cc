@@ -1,3 +1,14 @@
+/**
+ * @file s1_4.cc 抽象工厂模式，不同场景的不同怪物
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2024-01-21
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
+
 #include <iostream>
 
 using namespace std;
