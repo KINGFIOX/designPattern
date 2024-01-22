@@ -104,6 +104,8 @@ Monster* pMonster = pDirector->Construct("1234567890987654321");
 
 这个具体可以参考`s1_5.cc`
 
+![xml](image/xml.png)
+
 ## 4 - 建造者模式的总结
 
 用于分步骤构建一个复杂对象，其中构建步骤是一个稳定算法（忽然想到 post 报头）。
