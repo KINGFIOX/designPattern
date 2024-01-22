@@ -1,6 +1,6 @@
 # chap4 - 策略模式
 
-## 一个具体实现范例的逐步重构
+## 1 - 一个具体实现范例的逐步重构
 
 玩家到达一个特定的场景 或者 击杀 boss，那么补血道具将会出现。
 
@@ -45,7 +45,7 @@ Fighter: F_Warrior, F_Mage
 1. 导致引入许多新的策略类
 2. 使用策略时，调用者(main 主函数)必须熟知所有策略类的功能，并根据实际需要决定使用哪个策略类。
 
-## 依赖倒置原则（dependency inversion principle，DIP）
+## 2 - 依赖倒置原则（dependency inversion principle，DIP）
 
 是面向对象设计的主要实现方法，同时也是实现开闭原则的 重要实现途径。
 
