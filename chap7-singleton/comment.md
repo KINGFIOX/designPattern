@@ -60,3 +60,85 @@ C++11 引入了一个内存模型，以及与之相关的原子操作库，允�
 - **数据竞争**: 分析代码以确保没有数据竞争。即使是带有内存屏障的原子操作，如果不正确地使用，也可能引发数据竞争。
 
 总的来说，放置内存屏障的规则是确保线程之间共享数据的正确同步，同时尽量减少对性能的影响。这通常需要在保证程序正确性和优化性能之间找到平衡点。
+
+## 单例模式 泛型
+
+创建一个泛型单例类需要一些额外的思考，因为通常单例模式是用来限制一个类实例化一次。但是如果我们使用模板参数化单例，相当于为每种类型提供一个唯一的实例。以下是一个泛型单例类的实现：
+
+```cpp
+#include <iostream>
+#include <mutex>
+
+// 泛型单例类模板
+template <typename T>
+class Singleton {
+private:
+    // 静态变量用于存储唯一实例
+    static T* instance;
+    static std::mutex mutex;
+
+protected:
+    // 构造函数为protected，防止外部构造
+    Singleton() {}
+
+    // 禁止拷贝构造函数和赋值操作
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+
+public:
+    // 提供全局访问点
+    static T* getInstance() {
+        if (instance == nullptr) {
+            std::lock_guard<std::mutex> lock(mutex);
+            if (instance == nullptr) {
+                instance = new T();
+            }
+        }
+        return instance;
+    }
+
+    // 释放实例的方法
+    static void releaseInstance() {
+        std::lock_guard<std::mutex> lock(mutex);
+        if (instance != nullptr) {
+            delete instance;
+            instance = nullptr;
+        }
+    }
+};
+
+// 初始化静态成员
+template <typename T>
+T* Singleton<T>::instance = nullptr;
+
+template <typename T>
+std::mutex Singleton<T>::mutex;
+
+// 用于测试的类
+class MyClass {
+public:
+    void doSomething() {
+        std::cout << "Doing something..." << std::endl;
+    }
+};
+
+int main() {
+    // 获取单例实例并调用方法
+    MyClass* myClassInstance = Singleton<MyClass>::getInstance();
+    myClassInstance->doSomething();
+
+    // 释放单例实例
+    Singleton<MyClass>::releaseInstance();
+
+    return 0;
+}
+```
+
+在这个示例中，`Singleton`模板类提供了以下功能：
+
+- 私有静态指针`instance`用来持有唯一实例。
+- 一个`std::mutex`，`mutex`，用来确保在多线程环境中，实例化是线程安全的。
+- `getInstance`方法会检查实例是否已经创建，如果没有，它会加锁并检查一遍来确保只创建一次。
+- `releaseInstance`方法用来释放单例实例，并将其设置为`nullptr`。
+
+请注意，单例模式的这个泛型实现也需要考虑适当的生命周期管理，因为它使用了原始指针和`new`关键字。在实际应用中，你可能需要考虑使用智能指针来自动管理内存。
