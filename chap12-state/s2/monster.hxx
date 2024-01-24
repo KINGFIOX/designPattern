@@ -1,8 +1,6 @@
 #ifndef __MONSTER_HXX__
 #define __MONSTER_HXX__
 
-#include <iostream>
-
 class MonsterStatus; // 前向声明
 
 /**
